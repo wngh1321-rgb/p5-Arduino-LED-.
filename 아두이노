@@ -1,0 +1,15 @@
+const int ledPin = 9; // PWM을 지원하는 9번 핀 사용
+
+void setup() {
+  Serial.begin(9600); // PC와의 시리얼 통신 속도 설정 (9600 bps)
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  // p5.js로부터 데이터가 전송되었을 때
+  if (Serial.available() > 0) {
+    int brightness = Serial.parseInt(); // 전송받은 값을 정수로 변환
+    brightness = constrain(brightness, 0, 255); // 값의 범위를 0~255 사이로 안전하게 제한
+    analogWrite(ledPin, brightness); // PWM 신호로 LED 밝기 조절
+  }
+}
